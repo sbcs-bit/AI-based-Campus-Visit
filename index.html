@@ -60,7 +60,7 @@ body {
 video {
     width: 100%;
     display: none;
-    margin: 10px;
+    margin: 10px 0;
     border-radius: 8px;
 }
 
@@ -146,6 +146,15 @@ function sendText() {
     processCommand(text);
 }
 
+/* ✅ NEW CODE — ENTER KEY SUPPORT */
+document.getElementById("textInput").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendText();
+    }
+});
+/* ✅ END */
+
 function startListening() {
     addMessage("Listening...", "bot");
     recognition.start();
@@ -155,18 +164,19 @@ function startListening() {
 function playVideo(file) {
     videoPlayer.src = file;
     videoPlayer.style.display = "block";
+    videoPlayer.playbackRate = 2;
     videoPlayer.play();
 }
 
 /* ---------------- Knowledge Base ---------------- */
 const knowledgeBase = [
-    { k:["cyber science"], a:"Cyber Science and Technology is in Satyajit Bhavan, Building 1. Rooms 109 HoD and 110." },
+    { k:["cyber science"], a:"Cyber Science and Technology is in Satyajit Bhavan, Building 1. Rooms 109 Head of the Department and 110." },
     { k:["english"], a:"English and Literary Studies is in Satyajit Bhavan, Building 1, Room 104." },
     { k:["media", "journalism"], a:"Media Science and Journalism is in Satyajit Bhavan, Building 1, Room 409." },
     { k:["multimedia"], a:"Multimedia department is in Satyajit Bhavan, Building 1, Room 301." },
     { k:["psychology"], a:"Psychology department is in Satyajit Bhavan, Building 1, Room 101." },
 
-    { k:["pharmaceutical", "pharmacy"], a:"Pharmaceutical Technology is in Prafulla Bhavan, Building 3. Rooms 109 HoD and 107." },
+    { k:["pharmaceutical", "pharmacy"], a:"Pharmaceutical Technology is in Prafulla Bhavan, Building 3. Rooms 109 Head of the Department and 107." },
 
     { k:["agriculture"], a:"Agriculture department is in Jagadish Bhavan, Building 4. Rooms 102 Head of the Department and 101." },
     { k:["allied health"], a:"Allied Health Sciences is in Jagadish Bhavan, Building 4. Rooms 207 Head of the Department, 202, 301 and 302." },
@@ -184,8 +194,9 @@ const knowledgeBase = [
     { k:["ai"], a:"CSE with Artificial Intelligence is in Rabindra Bhavan, Building 5. Rooms 103 Head of the Department and 104." },
     { k:["data science", "ds"], a:"CSE with Data Science is in Rabindra Bhavan, Building 5, Room 203." },
 
-    { k:["commerce"], a:"Commerce department is in Rammohan Bhavan, Building 6. Rooms 613 HoD and 616." },
-    { k:["computational"], a:"Computational Sciences is in Rammohan Bhavan, Building 6. Rooms 306 Head of the Department, 303 and 305." },
+    { k:["commerce"], a:"Commerce department is in Rammohan Bhavan, Building 6. Rooms 613 Head of the Department and 616." },
+    { k:["computational"], a:"Computational Sciences is in Rammohan Bhavan, Building 6. Rooms 306 Head of the Department Dr. Jayanta Aich, 303 and 305." },
+    { k:["css"], a:"Computational Sciences is in Rammohan Bhavan, Building 6. Rooms 306 Head of the Department Dr. Jayanta Aich, 303 and 305." },
     { k:["hospital"], a:"Hospital Management is in Rammohan Bhavan, Building 6, Room 701." },
     { k:["law"], a:"Law department is in Rammohan Bhavan, Building 6. Rooms 105 Head of the Department and 106." },
     { k:["management"], a:"Management department is in Rammohan Bhavan, Building 6. Rooms 505 Head of the Department and 503." },
@@ -193,10 +204,31 @@ const knowledgeBase = [
     { k:["nursing"], a:"Institute of Nursing is in Vivekananda Bhavan, Building 9. Rooms 008 Principal, 009 and 010." }
 ];
 
+/* ---------------- Number Word Normalization ---------------- */
+const wordToNumber = {
+    one: "1",
+    two: "2",
+    three: "3",
+    four: "4",
+    five: "5",
+    six: "6",
+    seven: "7",
+    eight: "8",
+    nine: "9"
+};
+
+function normalizeInput(text) {
+    return text.toLowerCase().replace(
+        /\b(one|two|three|four|five|six|seven|eight|nine)\b/g,
+        match => wordToNumber[match]
+    );
+}
+
+
 /* ---------------- Main Logic ---------------- */
 function processCommand(text) {
-    const input = text.toLowerCase();
-
+    //const input = text.toLowerCase();
+    const input = normalizeInput(text);
     const bMatch = input.match(/\bbuilding\s*([1-9])\b|\b([1-9])\b/);
     if (bMatch) {
         const b = bMatch[1] || bMatch[2];
