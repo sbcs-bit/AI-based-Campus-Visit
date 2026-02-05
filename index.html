@@ -2,87 +2,210 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>University Voice Navigation Assistant</title>
 
 <style>
+:root{
+    --primary:#2f80ed;
+    --primary-dark:#1f6fe0;
+    --bg:#eef2f7;
+    --card:#ffffff;
+    --text:#1f2937;
+    --muted:#6b7280;
+    --bot:#f3f4f6;
+    --shadow: 0 10px 30px rgba(0,0,0,0.12);
+    --radius:18px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #eef2f7;
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    background: radial-gradient(circle at top, #f4f8ff, var(--bg));
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 18px;
+    color: var(--text);
 }
 
+/* Chat container */
 .chatbox {
-    width: 460px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    width: 520px;
+    max-width: 96vw;
+    height: 78vh;
+    min-height: 520px;
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
     display: flex;
     flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.06);
 }
 
+/* Header */
 .header {
-    background: #2f80ed;
+    background: linear-gradient(135deg, var(--primary), #4aa3ff);
     color: white;
-    padding: 14px;
-    text-align: center;
+    padding: 16px 18px;
     font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
+.header span{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.badge{
+    font-size: 12px;
+    padding: 6px 10px;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+}
+
+/* Messages area */
 .messages {
     flex: 1;
-    padding: 12px;
+    padding: 16px;
     overflow-y: auto;
+    background: linear-gradient(#ffffff, #fbfcff);
 }
 
+.messages::-webkit-scrollbar{
+    width: 10px;
+}
+.messages::-webkit-scrollbar-thumb{
+    background: rgba(0,0,0,0.15);
+    border-radius: 999px;
+}
+.messages::-webkit-scrollbar-track{
+    background: transparent;
+}
+
+/* Message bubbles */
 .msg {
-    padding: 8px 12px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    max-width: 80%;
-    font-size: 14px;
+    padding: 10px 14px;
+    margin: 10px 0;
+    border-radius: 14px;
+    max-width: 86%;
+    font-size: 14.5px;
+    line-height: 1.45;
+    position: relative;
+    word-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .user {
-    background: #2f80ed;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     color: white;
     margin-left: auto;
+    border-bottom-right-radius: 6px;
+    box-shadow: 0 10px 18px rgba(47,128,237,0.22);
 }
 
 .bot {
-    background: #e4e6eb;
-    color: black;
+    background: var(--bot);
+    color: var(--text);
     margin-right: auto;
+    border-bottom-left-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
+/* Video player */
 video {
-    width: 100%;
+    width: calc(100% - 24px);
+    margin: 12px auto;
     display: none;
-    margin: 10px 0;
-    border-radius: 8px;
+    border-radius: 14px;
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.08);
 }
 
+/* Controls */
 .controls {
     display: flex;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-    gap: 6px;
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(8px);
+}
+
+.inputWrap{
+    flex:1;
+    display:flex;
+    gap:10px;
+    align-items:center;
+    background:#f7f9ff;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 8px 12px;
 }
 
 input {
     flex: 1;
-    padding: 8px;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 6px 6px;
+    font-size: 14.5px;
+    color: var(--text);
+}
+
+input::placeholder{
+    color: #8b93a1;
 }
 
 button {
-    padding: 8px 12px;
     border: none;
-    background: #2f80ed;
-    color: white;
-    border-radius: 4px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    border-radius: 999px;
+    transition: transform 0.12s ease, background 0.2s ease, opacity 0.2s ease;
+}
+
+.btnSend{
+    padding: 10px 14px;
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 10px 18px rgba(47,128,237,0.20);
+}
+.btnSend:hover{
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+
+.btnMic{
+    width: 46px;
+    height: 46px;
+    background: #111827;
+    color: white;
+}
+.btnMic:hover{
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Small helper footer */
+.hint{
+    font-size: 12px;
+    color: var(--muted);
+    padding: 0 16px 12px 16px;
+    background: linear-gradient(#fbfcff, #ffffff);
 }
 </style>
 </head>
@@ -90,16 +213,23 @@ button {
 <body>
 
 <div class="chatbox">
-    <div class="header">AI-based Campus Visit</div>
+    <div class="header">
+        <span>AI-based Campus Visit</span>
+        <div class="badge">Voice + Chat</div>
+    </div>
 
     <div class="messages" id="messages"></div>
 
     <video id="videoPlayer" controls></video>
 
+    <div class="hint">Tip: Try “building 5”, “building six”, or “CSE department”.</div>
+
     <div class="controls">
-        <input id="textInput" placeholder="Ask a question or say building / department..." />
-        <button onclick="sendText()">Send</button>
-        <button onclick="startListening()">🎤</button>
+        <div class="inputWrap">
+            <input id="textInput" placeholder="Ask a question or say building / department..." />
+        </div>
+        <button class="btnSend" onclick="sendText()">Send</button>
+        <button class="btnMic" onclick="startListening()">🎤</button>
     </div>
 </div>
 
@@ -119,6 +249,11 @@ if (SpeechRecognition) {
         const text = event.results[0][0].transcript;
         addMessage(text, "user");
         processCommand(text);
+    };
+
+    recognition.onerror = () => {
+        addMessage("Microphone error or permission denied.", "bot");
+        speak("Microphone error or permission denied.");
     };
 }
 
@@ -146,17 +281,21 @@ function sendText() {
     processCommand(text);
 }
 
-/* ✅ NEW CODE — ENTER KEY SUPPORT */
+/* ✅ ENTER KEY SUPPORT */
 document.getElementById("textInput").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         event.preventDefault();
         sendText();
     }
 });
-/* ✅ END */
 
 function startListening() {
     addMessage("Listening...", "bot");
+    if (!recognition) {
+        addMessage("Speech recognition not supported in this browser.", "bot");
+        speak("Speech recognition not supported in this browser.");
+        return;
+    }
     recognition.start();
 }
 
@@ -224,12 +363,11 @@ function normalizeInput(text) {
     );
 }
 
-
 /* ---------------- Main Logic ---------------- */
 function processCommand(text) {
-    //const input = text.toLowerCase();
     const input = normalizeInput(text);
     const bMatch = input.match(/\bbuilding\s*([1-9])\b|\b([1-9])\b/);
+
     if (bMatch) {
         const b = bMatch[1] || bMatch[2];
         const reply = `Showing directions to Building ${b}.`;
