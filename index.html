@@ -237,6 +237,13 @@ button {
 const messages = document.getElementById("messages");
 const videoPlayer = document.getElementById("videoPlayer");
 
+videoPlayer.addEventListener("ended", () => {
+    videoPlayer.pause();
+    videoPlayer.currentTime = 0;
+    videoPlayer.src = "";
+    videoPlayer.style.display = "none";
+});
+
 /* ---------------- Speech Recognition ---------------- */
 let recognition;
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -340,7 +347,236 @@ const knowledgeBase = [
     { k:["law"], a:"Law department is in Rammohan Bhavan, Building 6. Rooms 105 Head of the Department and 106." },
     { k:["management"], a:"Management department is in Rammohan Bhavan, Building 6. Rooms 505 Head of the Department and 503." },
 
-    { k:["nursing"], a:"Institute of Nursing is in Vivekananda Bhavan, Building 9. Rooms 008 Principal, 009 and 010." }
+    { k:["nursing"], a:"Institute of Nursing is in Vivekananda Bhavan, Building 9. Rooms 008 Principal, 009 and 010." },
+    /* ---------------- Complete University Directory (From Excel) ---------------- */
+
+
+    /* ---------- Academic & Statutory Authorities ---------- */
+    {
+        k: ["vice chancellor", "vc"],
+        a: "Vice Chancellor is Dr. Sankar Gangopadhyay. Phone number 9239305470. Email vc@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["senior pro vice chancellor", "pro vc academics"],
+        a: "Senior Pro Vice Chancellor Academics is Prof. Dr. Debendra Kumar Panda. Phone number 9893973341. Email srprovc@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["registrar"],
+        a: "Registrar Acting is Dr. Swaraj Kumar Sarkar. Phone number 9830498034. Email registrar@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["dean academics"],
+        a: "Dean Academics is Dr. Anant Kumar Srivastava. Phone number 8126471204. Email dean.academics@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["dean students welfare", "students welfare"],
+        a: "Dean Students Welfare is Dr. Anup Kumar Maiti. Phone number 9123881934. Email dean.students@brainwareuniversity.ac.in."
+    },
+
+    /* ---------- Heads of Departments (HOD) ---------- */
+{
+    k: ["hod agriculture"],
+    a: "HOD of Agriculture is Dr. Soham Hazra. Phone 7278357829. Email hod.ag@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod allied health sciences", "hod allied health"],
+    a: "HOD of Allied Health Sciences is Dr. Abhishek Jana. Phone 9775174928. Email hod.ah@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod biotechnology"],
+    a: "HOD of Biotechnology is Dr. Sayantan Ghosh. Phone 8017646044. Email hod.bt@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod chemistry"],
+    a: "HOD of Chemistry is Dr. Sayanti Datta. Phone 9474066078. Email hod.chem@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod civil engineering", "hod civil"],
+    a: "HOD of Civil Engineering is Soumi Dey. Phone 8697487960. Email hod.ce@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod commerce"],
+    a: "HOD of Commerce can be contacted at hod.comm@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod computational sciences", "hod css"],
+    a: "HOD of Computational Sciences is Dr. Jayanta Aich. Phone 7003401453. Email hod.css@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod computer science and engineering", "hod cse"],
+    a: "HOD of Computer Science and Engineering is Dr. Avijit Kumar Chaudhuri. Phone 9432254912. Email hod.csengg@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod cse ai", "hod artificial intelligence"],
+    a: "HOD of CSE with Artificial Intelligence is Dr. Shivnath Ghosh. Phone 9660212732. Email hod.cseai@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod cse data science", "hod cs ds"],
+    a: "HOD of CSE (CS & Data Science) is Dr. Supriya Chakraborty. Phone 9339667210. Email hod.csecsds@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod cyber science"],
+    a: "HOD of Cyber Science and Technology is Anirban Lahiri. Phone 9831611579. Email hod.cst@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod electrical engineering", "hod ee"],
+    a: "HOD of Electrical Engineering is Dr. Subhajit Mukherjee. Phone 9051498346. Email hod.ee@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod electronics", "hod ece"],
+    a: "HOD of Electronics and Communication Engineering is Dr. Angshuman Majumdar. Phone 9831609600. Email hod.ece@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod english"],
+    a: "HOD of English and Literary Studies is Dr. Thameemul Ansari. Phone 7373627002. Email hod.hu@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod food and nutrition"],
+    a: "HOD of Food and Nutrition is Dr. Laavanya Das. Phone 8981016819. Email hod.fnt@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod hospital management"],
+    a: "HOD of Hospital Management is Dr. Sourav Gangopadhyay. Phone 9830601451. Email hod.hm@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod law"],
+    a: "HOD of Law is Dr. Kaushik Banerjee. Phone 8296029146. Email hod.law@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod management"],
+    a: "HOD of Management is Dr. Saileswar Ghosh. Phone 9319292219. Email hod.management@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod mathematics"],
+    a: "HOD of Mathematics is Surath Roy. Phone 7003831413. Email hod.math@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod mechanical engineering", "hod me"],
+    a: "HOD of Mechanical Engineering is Gourab Chakraborty. Phone 9088448833. Email hod.me@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod media science", "hod journalism"],
+    a: "HOD of Media Science and Journalism is Jennifer Shaheen Hussain. Phone 8812821350. Email hod.msj@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod multimedia"],
+    a: "HOD of Multimedia is Sandip Bhattacharjee. Phone 9830017429. Email hod.mm@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod pharmaceutical technology", "hod pharmacy"],
+    a: "HOD of Pharmaceutical Technology is Dr. Prasenjit Mondal. Phone 9398015746. Email hod.pt@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod physics"],
+    a: "HOD of Physics is Dr. Soumyajit Sarkar. Phone 6289141855. Email hod.ph@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod psychology"],
+    a: "HOD of Psychology is Dr. Alok Kumar Chowdhury. Phone 6306492616. Email hod.psy@brainwareuniversity.ac.in."
+},
+{
+    k: ["hod group mail"],
+    a: "HOD Group Mail ID is bwuhod@brainwareuniversity.ac.in."
+},
+
+    /* ---------- Non-Academic Officers ---------- */
+    {
+        k: ["controller of examinations", "coe"],
+        a: "Controller of Examinations can be contacted at coe@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["deputy registrar"],
+        a: "Deputy Registrar can be contacted at dr@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["assistant registrar"],
+        a: "Assistant Registrar can be contacted at ar@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["accounts officer"],
+        a: "Accounts Officer can be contacted at accounts@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["finance officer"],
+        a: "Finance Office can be contacted at bwufin@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["hr department", "human resources"],
+        a: "Human Resources Department email is hr@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["purchase department"],
+        a: "Purchase Department email is purchase@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["estate office"],
+        a: "Estate Office can be contacted at estate@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["it cell"],
+        a: "IT Cell email is itcell@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["library"],
+        a: "Central Library email is library@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["hostel office"],
+        a: "Hostel Office email is hostel@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["transport office"],
+        a: "Transport Office email is transport@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["training and placement", "tpo"],
+        a: "Training and Placement Office email is bwutpo@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["examination cell"],
+        a: "Examination Cell email is exam@brainwareuniversity.ac.in."
+    },
+
+    /* ---------- Administrative & Support Units ---------- */
+    {
+        k: ["administration office"],
+        a: "Administration Office email is bwuadmin@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["legal cell"],
+        a: "Legal Cell email is bwulegal@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["admission office"],
+        a: "Admission Office email is bwuadmission@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["research centre", "ciri"],
+        a: "Centre of Interdisciplinary Research and Innovation email is bwuciri@brainwareuniversity.ac.in."
+    },
+
+    /* ---------- Group Mail IDs (From Excel Tail Section) ---------- */
+    {
+        k: ["admin group mail"],
+        a: "Administration Group Mail ID is bwuadmin@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["finance group mail"],
+        a: "Finance Group Mail ID is bwufin@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["legal group mail"],
+        a: "Legal Cell Group Mail ID is bwulegal@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["admission group mail"],
+        a: "Admission Group Mail ID is bwuadmission@brainwareuniversity.ac.in."
+    },
+    {
+        k: ["ciri group mail"],
+        a: "Centre of Interdisciplinary Research and Innovation Group Mail ID is bwuciri@brainwareuniversity.ac.in."
+    }
+
 ];
 
 /* ---------------- Number Word Normalization ---------------- */
