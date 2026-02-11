@@ -237,6 +237,10 @@ button {
 const messages = document.getElementById("messages");
 const videoPlayer = document.getElementById("videoPlayer");
 
+/* ✅ Message History Variables (NEW) */
+let messageHistory = [];
+let historyIndex = -1;
+
 videoPlayer.addEventListener("ended", () => {
     videoPlayer.pause();
     videoPlayer.currentTime = 0;
@@ -255,6 +259,11 @@ if (SpeechRecognition) {
     recognition.onresult = (event) => {
         const text = event.results[0][0].transcript;
         addMessage(text, "user");
+
+        /* ✅ Store voice message in history */
+        messageHistory.push(text);
+        historyIndex = messageHistory.length;
+
         processCommand(text);
     };
 
@@ -283,16 +292,42 @@ function sendText() {
     const input = document.getElementById("textInput");
     const text = input.value.trim();
     if (!text) return;
+
     addMessage(text, "user");
+
+    /* ✅ Store message in history */
+    messageHistory.push(text);
+    historyIndex = messageHistory.length;
+
     input.value = "";
     processCommand(text);
 }
 
-/* ✅ ENTER KEY SUPPORT */
+/* ✅ ENTER + ARROW KEY SUPPORT (UPDATED, nothing removed) */
 document.getElementById("textInput").addEventListener("keydown", function (event) {
+
     if (event.key === "Enter") {
         event.preventDefault();
         sendText();
+    }
+
+    if (event.key === "ArrowUp") {
+        event.preventDefault();
+        if (historyIndex > 0) {
+            historyIndex--;
+            this.value = messageHistory[historyIndex];
+        }
+    }
+
+    if (event.key === "ArrowDown") {
+        event.preventDefault();
+        if (historyIndex < messageHistory.length - 1) {
+            historyIndex++;
+            this.value = messageHistory[historyIndex];
+        } else {
+            historyIndex = messageHistory.length;
+            this.value = "";
+        }
     }
 });
 
@@ -313,6 +348,8 @@ function playVideo(file) {
     videoPlayer.playbackRate = 2;
     videoPlayer.play();
 }
+
+/* ---------------- Knowledge Base ---------------- */
 
 /* ---------------- Knowledge Base ---------------- */
 const knowledgeBase = [
